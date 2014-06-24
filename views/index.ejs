@@ -39,12 +39,14 @@
        </div>
      </div>
 
-     <%  wishes.forEach(function(wish){ %>
+     <%  for (i=wishes.length-1; i>=0; i--) { %>
       <div class="ui piled segment">
-      <h3><%=wish.from %> 对 <%=wish.to %> 说：</h3>
-      <p><%= wish.content%></p>
+      <h3 class="ui left floated header "><%=wishes[i].from %> 对 <%=wishes[i].to %> 说：</h3>
+      <h3 class="ui right floated header"><%=wishes[i].timeS%></h3>
+      <div style="clear: both"></div>
+      <p><%= wishes[i].content%></p>
       </div>
-    <%  });%>
+    <%  };%>
 
   </div>
 
