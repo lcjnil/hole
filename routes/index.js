@@ -20,10 +20,10 @@ router.post('/', function(req, res) {
     content: req.body.content
   });
   if (req.body.from == "") {
-    wish.from ="Everyone";
+    wish.from ="Anonymous";
   }
   if (req.body.to == "") {
-    wish.to ="Anonymous";
+    wish.to ="Everyone";
   }
   wish.save(function(err) {
     res.redirect('back');
