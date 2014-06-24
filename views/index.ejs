@@ -1,11 +1,53 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
+<head>
+  <title><%= title %></title>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="stylesheets/semantic.css">
+
+  <script src="javascripts/jq.js"></script>
+  <script src="javascripts/semantic.min.js"></script>
+</head>
+<body>
+  <div class="ui page grid">
+    <div class="ui column">
+      <div class="ui header">
+        <h1><%= title %></h1>
+        <div class="content">Welcome to <%= title %></div>
+        <div class="sub header">这里是一个测试的树洞，暂时木有各种样式表</p>
+        </div>
+        <div class="ui form segment">
+          <form method="post">
+            <div class="two fields">
+              <div class="field">
+               <label>From</label>
+               <input name="from" placeholder="输入你的名字，或者留空" type="text">
+             </div>
+
+             <div class="field">
+               <label>To</label>
+               <input name="to" placeholder="输入你要发送的对象，或者留空" type="text">
+             </div>
+           </div>
+           <div class="field">
+             <textarea rows="10" placeholder="输入你想发送的话，不能留空哦" name="content"></textarea>
+           </div>
+           <button class="ui blue submit button"type="submit">Submit</button>
+         </form>
+       </div>
+     </div>
+
+     <%  wishes.forEach(function(wish){ %>
+      <div class="ui piled segment">
+      <h3><%=wish.from %> 对 <%=wish.to %> 说：</h3>
+      <p><%= wish.content%></p>
+      </div>
+    <%  });%>
+
+  </div>
+
+</div>
+</body>
 </html>

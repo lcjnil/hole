@@ -5,7 +5,7 @@ var WishSchema = new mongoose.Schema({
   to: String,
   id: Number,
   content: String,
-  visible: {type: Number, default: true},
+  visible: {type: Boolean, default: true},
   time: {type: Date, default: Date.now}
 }, {
   collection: 'wish'
