@@ -6,9 +6,9 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="stylesheets/semantic.css">
-
   <script src="javascripts/jq.js"></script>
   <script src="javascripts/semantic.min.js"></script>
+
 </head>
 <body>
   <div class="ui page grid">
@@ -18,21 +18,27 @@
         <div class="content">Welcome to <%= title %></div>
         <div class="sub header">这里是一个测试的树洞，暂时木有各种样式表</p>
         </div>
-        <div class="ui form segment">
+        <div class="ui small form segment">
           <form method="post">
             <div class="two fields">
               <div class="field">
                <label>From</label>
-               <input name="from" placeholder="输入你的名字，或者留空" type="text">
+               <div class="ui mini input">
+                 <input name="from" placeholder="输入你的名字，或者留空" type="text">
+               </div>
              </div>
 
              <div class="field">
                <label>To</label>
-               <input name="to" placeholder="输入你要发送的对象，或者留空" type="text">
+               <div class="ui mini input">
+                 <input name="to" placeholder="输入你要发送的对象，或者留空" type="text">
+               </div>
              </div>
            </div>
            <div class="field">
-             <textarea rows="10" placeholder="输入你想发送的话，不能留空哦" name="content"></textarea>
+             <div class="ui mini input">
+               <textarea placeholder="输入你想发送的话，不能留空哦" name="content"></textarea>
+             </div>
            </div>
            <button class="ui blue submit button"type="submit">Submit</button>
          </form>
@@ -40,16 +46,69 @@
      </div>
 
      <%  for (i=wishes.length-1; i>=0; i--) { %>
-      <div class="ui piled segment">
+     <div class="ui piled segment">
       <h3 class="ui left floated header "><%=wishes[i].from %> 对 <%=wishes[i].to %> 说：</h3>
       <h3 class="ui right floated header"><%=wishes[i].timeS%></h3>
       <div style="clear: both"></div>
       <p><%= wishes[i].content%></p>
-      </div>
+    </div>
     <%  };%>
-
   </div>
+</div>
+<div class="dark stripe" style="background-color: #333333;">
+  <div class="ui page grid">
+    <div class="column">
+      <div class="ui center aligned inverted icon header">
+        <i class="circular emphasized inverted teal heart icon"></i>
+        捐助我们！
+        <div class="sub header">在支付宝上捐助kevin1995#qq.com</div>
+        <div class="sub header">您的每一元都可以支持我们多工作一天！</div>
+      </div>
 
+      <div class="ui inverted horizontal section divider">
+        <i class="circular heart icon"></i>
+      </div>
+
+      <div class="ui stackable grid">
+        <div class="four column center aligned row">
+          <div class="column">
+            <div class="ui stacked seqment">
+              <div class="ui statistic">
+                <div class="number">325</div>
+                <div class="description">325行代码</div>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="ui  stacked seqment">
+              <div class="ui statistic">
+                <div class="number">1</div>
+                <div class="description">1位程序员</div>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="ui  stacked seqment">
+              <div class="ui statistic">
+                <div class="number">2</div>
+                <div class="description">2天时间</div>
+              </div>
+            </div>
+          </div>
+          <div class="column">
+            <div class="ui stacked seqment">
+              <div class="ui statistic">
+                <div class="number">58</div>
+                <div class="description">58/月服务器租用成本</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+  </div>
 </div>
 </body>
 </html>
