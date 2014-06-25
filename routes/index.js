@@ -8,7 +8,7 @@ var Wish = require('../model/wish.js').Wish;
 router.get('/', function(req, res) {
   Wish.find('', function(err, wishes) {
     wishes.forEach(function(wish, index) {
-      wishes[index].timeS = daylight('Y-m-d H:i', wish.time);
+      wishes[index].timeS = daylight('m/d H:i', wish.time);
     })
 
     res.render('index', {
