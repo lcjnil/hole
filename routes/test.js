@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 var daylight = require('daylight');
 
-var Wish = require('../model/wish.js').Wish;
+var Wish = require('../model/test.js').Wish;
 
 /* GET home page. */
 router.get('/', function(req, res) {
