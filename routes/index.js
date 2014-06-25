@@ -43,7 +43,7 @@ router.post('/', function(req, res) {
 router.get('/YWRtaW4=', function(req, res) {
   Wish.find('', function(err, wishes) {
     wishes.forEach(function(wish, index) {
-      wishes[index].timeS = daylight('Y-m-d H:i', wish.time);
+      wishes[index].timeS = daylight('m/d H:i', wish.time);
     })
 
     res.render('admin', {
