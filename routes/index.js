@@ -14,26 +14,73 @@ router.get('/', function(req, res) {
     res.render('index', {
       title: '网络工程树洞',
       wishes: wishes
-      });
+    });
   })
 
 });
 
 router.post('/', function(req, res) {
-  var wish = new Wish({
-    to: req.body.to,
-    from: req.body.from,
-    content: req.body.content
-  });
-  if (req.body.from == "") {
-    wish.from ="Anonymous";
-  }
-  if (req.body.to == "") {
-    wish.to ="Everyone";
-  }
-  wish.save(function(err) {
-    res.redirect('back');
+  Wish.count('', function(err, cnt) {
+    var wish = new Wish({
+      to: req.body.to,
+      from: req.body.from,
+      content: req.body.content,
+      id: cnt+1
+    });
+    if (req.body.from == "") {
+      wish.from ="Anonymous";
+    }
+    if (req.body.to == "") {
+      wish.to ="Everyone";
+    }
+    wish.save(function(err) {
+      res.redirect('back');
+    })
   })
 })
 
+
+router.get('/YWRtaW4=', function(req, res) {
+  Wish.find('', function(err, wishes) {
+    wishes.forEach(function(wish, index) {
+      wishes[index].timeS = daylight('Y-m-d H:i', wish.time);
+    })
+
+    res.render('admin', {
+      title: '网络工程树洞-管理界面',
+      wishes: wishes
+    });
+  })
+})
+
+router.post('/YWRtaW4=', function(req, res) {
+  if (req.body.deleteId) {
+    Wish.findOne({id: req.body.deleteId}, function(err, oneWish) {
+      if (err) {
+        res.render('error', {
+          message: err.message,
+          error: err
+        });
+      }
+      oneWish.visible = false;
+      oneWish.save(function(err) {
+        res.redirect('back');
+      })
+    })
+  }
+  else if (req.body.restartId) {
+    Wish.findOne({id: req.body.restartId}, function(err, oneWish) {
+      if (err) {
+        res.render('error', {
+          message: err.message,
+          error: err
+        });
+      }
+      oneWish.visible = true;
+      oneWish.save(function(err) {
+        res.redirect('back');
+      })
+    })
+  }
+})
 module.exports = router;

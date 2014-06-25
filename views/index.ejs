@@ -8,52 +8,74 @@
   <link rel="stylesheet" type="text/css" href="stylesheets/semantic.css">
   <script src="javascripts/jq.js"></script>
   <script src="javascripts/semantic.min.js"></script>
-
+  <style>
+    body {
+      background: #FCFCFC url(../images/bg.jpg) repeat;
+    }
+    #header {
+      background: #00B5AD url(/images/tile-bg.png) repeat fixed 0% 0%;
+    }
+  </style>
 </head>
 <body>
-  <div class="ui page grid">
-    <div class="ui column">
-      <div class="ui header">
-        <h1><%= title %></h1>
-        <div class="content">Welcome to <%= title %></div>
-        <div class="sub header">这里是一个测试的树洞，暂时木有各种样式表</p>
-        </div>
-        <div class="ui small form segment">
-          <form method="post">
-            <div class="two fields">
-              <div class="field">
-               <label>From</label>
-               <div class="ui mini input">
-                 <input name="from" placeholder="输入你的名字，或者留空" type="text">
+  <div class="masthead segment" id="header">
+    <div class="ui page grid">
+      <div class="ui column">
+        <div class="ui header">
+          <h1>网络工程树洞<div class="ui black label">ver.1.0</div></h1>
+          <div class="content">网络工程树洞</div>
+          <div class="sub header">这里是一个测试的树洞，暂时木有各种样式表
+          </div>
+          <div class="ui small form segment">
+            <form method="post">
+              <div class="two fields">
+                <div class="field">
+                 <label>From</label>
+                 <div class="ui mini input">
+                   <input name="from" placeholder="输入你的名字，或者留空" type="text">
+                 </div>
                </div>
-             </div>
 
-             <div class="field">
-               <label>To</label>
-               <div class="ui mini input">
-                 <input name="to" placeholder="输入你要发送的对象，或者留空" type="text">
+               <div class="field">
+                 <label>To</label>
+                 <div class="ui mini input">
+                   <input name="to" placeholder="输入你要发送的对象，或者留空" type="text">
+                 </div>
                </div>
              </div>
-           </div>
-           <div class="field">
-             <div class="ui mini input">
-               <textarea placeholder="输入你想发送的话，不能留空哦" name="content"></textarea>
+             <div class="field">
+               <div class="ui mini input">
+                 <textarea placeholder="输入你想发送的话，不能留空哦" name="content"></textarea>
+               </div>
              </div>
-           </div>
-           <button class="ui blue submit button"type="submit">Submit</button>
-         </form>
+             <button class="ui blue submit button"type="submit">Submit</button>
+           </form>
+         </div>
        </div>
      </div>
+   </div>
+ </div>
 
-     <%  for (i=wishes.length-1; i>=0; i--) { %>
-     <div class="ui piled segment">
-      <h3 class="ui left floated header "><%=wishes[i].from %> 对 <%=wishes[i].to %> 说：</h3>
-      <h3 class="ui right floated header"><%=wishes[i].timeS%></h3>
-      <div style="clear: both"></div>
-      <p><%= wishes[i].content%></p>
-    </div>
-    <%  };%>
-  </div>
+ <div class="ui page grid">
+  <div class="ui column">
+   <%  for (i=wishes.length-1; i>=0; i--) { %>
+   <% if (wishes[i].visible) { %>
+   <div class="ui piled feed segment">
+     <div class="ui small teal ribbon label"><%=wishes[i].id%></div>
+     <div class="event">
+       <div class="content">
+         <div class="date">
+           <%=wishes[i].timeS%>
+         </div>
+         <div class="summary">
+           <b><%=wishes[i].from%></b>对<b><%=wishes[i].to%></b>说：<p><%= wishes[i].content%></p>
+         </div>
+       </div>
+     </div>
+   </div>
+   <%  };%>
+   <%  };%>
+ </div>
 </div>
 <div class="dark stripe" style="background-color: #333333;">
   <div class="ui page grid">
@@ -62,7 +84,7 @@
         <i class="circular emphasized inverted teal heart icon"></i>
         捐助我们！
         <div class="sub header">在支付宝上捐助kevin1995#qq.com</div>
-        <div class="sub header">您的每一元都可以支持我们多工作一天！</div>
+        <div class="sub header">您的每一元都可以支持我们多工作半天！</div>
       </div>
 
       <div class="ui inverted horizontal section divider">
