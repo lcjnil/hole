@@ -35,6 +35,7 @@ router.post('/', function(req, res) {
     }
     wish.save(function(err) {
       res.redirect('back');
+      
     })
   })
 })
