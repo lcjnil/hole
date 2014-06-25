@@ -132,5 +132,20 @@
     </div>
   </div>
 </div>
+<script>
+  $('.ui.form')
+  .form({
+    content: {
+      identifier : 'content',
+      rules: [
+      {
+        type   : 'empty',
+        prompt : '请输入你想说的话啦！'
+      }
+      ]
+    }
+  })
+  ;
+</script>
 </body>
 </html>
