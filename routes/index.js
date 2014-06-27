@@ -10,7 +10,7 @@ router.get('/', function(req, res) {
   if (!req.session.token) {
     req.session.token = randomString(8);
   }
-  Wish.find('', function(err, wishes) {
+  Wish.find().sort({'id':1}).exec(function(err, wishes){
     wishes.forEach(function(wish, index) {
       if(!Array.isArray(wish.likes)) {
         wish.likes=[];
@@ -28,7 +28,6 @@ router.get('/', function(req, res) {
       wishes: wishes
     });
   })
-
 });
 
 router.post('/', function(req, res) {
