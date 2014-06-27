@@ -20,7 +20,9 @@ router.get('/', function(req, res) {
       }
       wishes[index].timeS = daylight('m/d H:i', wish.time);
       wish.content = wish.content.replace(/\r\n/g,'</br>');
+      wishes[index].content = showEmoji(wishes[index].content);
     })
+
     res.render('index', {
       title: '网络工程树洞',
       success: req.flash('success').toString(),
@@ -154,4 +156,19 @@ function randomString(length) {
     str += chars[Math.floor(Math.random() * chars.length)];
   }
   return str;
+}
+
+function showEmoji(content) {
+  var dom;
+  reg = /\[emoji:\w+\]/g;
+  matchArray = content.match(reg);
+  if (matchArray==null) return content;
+  matchArray.forEach(function(eachMatch) {
+    dom = eachMatch.toString()
+    dom = dom.substr(1, eachMatch.length-2);
+    dom = dom.replace(':', '');
+    dom = '<span class="emoji ' + dom +'"></span>';
+    content = content.replace(eachMatch, dom)
+ })
+  return content;
 }

@@ -9,13 +9,14 @@ router.get('/', function(req, res) {
   Wish.find('', function(err, wishes) {
     wishes.forEach(function(wish, index) {
       wishes[index].timeS = daylight('Y-m-d H:i', wish.time);
+
     })
 
     res.render('index', {
       title: '网络工程树洞',
       wishes: wishes,
       success: req.flash('success').toString(),
-      error: req.flash('error').toString(),
+      error: emoji.unifiedToHTML(unescape('\u2600')),
       test: true
     });
   })
@@ -87,3 +88,5 @@ router.post('/YWRtaW4=', function(req, res) {
   }
 })
 module.exports = router;
+
+
