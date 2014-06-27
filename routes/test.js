@@ -16,7 +16,7 @@ router.get('/', function(req, res) {
       title: '网络工程树洞',
       wishes: wishes,
       success: req.flash('success').toString(),
-      error: emoji.unifiedToHTML(unescape('\u2600')),
+      error: req.flash('error').toString(),
       test: true
     });
   })
