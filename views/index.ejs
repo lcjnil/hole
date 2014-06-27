@@ -90,6 +90,7 @@
          <div class="summary">
            <b><%=wishes[i].from%></b>对<b><%=wishes[i].to%></b>说：<p><%= wishes[i].content%></p>
            <p>
+             <% if (!test) { %>
              <form action="/likes" method="post">
                <% if (wishes[i].likes.indexOf(user)!=-1) { %>
                <button class="red ui icon button" name="clearLike" value="<%=wishes[i].id%>">
@@ -111,6 +112,7 @@
                </button>
                <% } %>
              </form>
+             <% } %>
            </p>
          </div>
        </div>

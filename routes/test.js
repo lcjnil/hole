@@ -13,7 +13,10 @@ router.get('/', function(req, res) {
 
     res.render('index', {
       title: '网络工程树洞',
-      wishes: wishes
+      wishes: wishes,
+      success: req.flash('success').toString(),
+      error: req.flash('error').toString(),
+      test: true
     });
   })
 

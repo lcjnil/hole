@@ -25,7 +25,8 @@ router.get('/', function(req, res) {
       success: req.flash('success').toString(),
       error: req.flash('error').toString(),
       user: req.session.token,
-      wishes: wishes
+      wishes: wishes,
+      test: false
     });
   })
 });
