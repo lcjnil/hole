@@ -19,6 +19,7 @@ router.get('/', function(req, res) {
         wish.dislikes=[];
       }
       wishes[index].timeS = daylight('m/d H:i', wish.time);
+      wish.content = wish.content.replace(/\r\n/g,'</br>');
     })
     res.render('index', {
       title: '网络工程树洞',
