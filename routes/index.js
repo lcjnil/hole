@@ -6,13 +6,25 @@ var Wish = require('../model/wish.js').Wish;
 
 /* GET home page. */
 router.get('/', function(req, res) {
+  //GET COOKIE
+  if (!req.session.token) {
+    req.session.token = randomString(8);
+  }
   Wish.find('', function(err, wishes) {
     wishes.forEach(function(wish, index) {
+      if(!Array.isArray(wish.likes)) {
+        wish.likes=[];
+      }
+      if(!Array.isArray(wish.dislikes)) {
+        wish.dislikes=[];
+      }
       wishes[index].timeS = daylight('m/d H:i', wish.time);
     })
-
     res.render('index', {
       title: '网络工程树洞',
+      success: req.flash('success').toString(),
+      error: req.flash('error').toString(),
+      user: req.session.token,
       wishes: wishes
     });
   })
@@ -34,12 +46,53 @@ router.post('/', function(req, res) {
       wish.to ="Everyone";
     }
     wish.save(function(err) {
+      if (err) {
+        req.flash('error', '数据库异常！');
+        return res.redirect('back');
+      }
+      req.flash('success', '您的秘密已经投递～');
       res.redirect('back');
     })
   })
 })
 
-
+//LIKES
+router.post('/likes', function(req, res){
+  if (req.body.like) {
+    Wish.findOne({id: req.body.like}, function(err, oneWish) {
+      oneWish.likes.push(req.session.token);
+      oneWish.save(function(err) {
+        //req.flash('success', '点赞成功');
+        res.redirect('back');
+      })
+    })
+  }
+  if (req.body.clearLike) {
+    Wish.findOne({id: req.body.clearLike}, function(err, oneWish) {
+      oneWish.likes.splice(oneWish.likes.indexOf(req.session.token), 1);
+      oneWish.save(function(err) {
+        //req.flash('success', '取消点赞成功');
+        res.redirect('back');
+      })
+    })
+  }
+  if (req.body.dislike) {
+    Wish.findOne({id: req.body.dislike}, function(err, oneWish) {
+      oneWish.dislikes.push(req.session.token);
+      oneWish.save(function(err) {
+        res.redirect('back');
+      })
+    })
+  }
+  if (req.body.clearDislike) {
+    Wish.findOne({id: req.body.clearDislike}, function(err, oneWish) {
+      oneWish.dislikes.splice(oneWish.dislikes.indexOf(req.session.token), 1);
+      oneWish.save(function(err) {
+        res.redirect('back');
+      })
+    })
+  }
+})
 router.get('/YWRtaW4=', function(req, res) {
   Wish.find('', function(err, wishes) {
     wishes.forEach(function(wish, index) {
@@ -84,3 +137,20 @@ router.post('/YWRtaW4=', function(req, res) {
   }
 })
 module.exports = router;
+
+
+
+
+function randomString(length) {
+  var chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz'.split('');
+
+  if (! length) {
+    length = Math.floor(Math.random() * chars.length);
+  }
+
+  var str = '';
+  for (var i = 0; i < length; i++) {
+    str += chars[Math.floor(Math.random() * chars.length)];
+  }
+  return str;
+}

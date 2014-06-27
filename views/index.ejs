@@ -21,6 +21,24 @@
   <div class="masthead segment" id="header">
     <div class="ui page grid">
       <div class="ui column">
+        <% if (success) { %>
+        <div class="ui green icon message">
+          <i class="save icon"></i>
+          <div class="content">
+            <p><%= success %></p>
+          </div>
+        </div>
+        <% }; %>
+
+        <% if (error) { %>
+        <div class="ui red icon message">
+          <i class="save icon"></i>
+          <div class="content">
+            <p><%= error %></p>
+          </div>
+        </div>
+        <% }; %>
+
         <div class="ui header">
           <h1>网络工程树洞<div class="ui black label">ver.1.0</div></h1>
           <div class="content">(ノﾟ∀ﾟ)ノ欢迎来到树洞</div>
@@ -71,6 +89,29 @@
          </div>
          <div class="summary">
            <b><%=wishes[i].from%></b>对<b><%=wishes[i].to%></b>说：<p><%= wishes[i].content%></p>
+           <p>
+             <form action="/likes" method="post">
+               <% if (wishes[i].likes.indexOf(user)!=-1) { %>
+               <button class="red ui icon button" name="clearLike" value="<%=wishes[i].id%>">
+                 <i class="thumbs up icon"></i><%= wishes[i].likes.length%>
+               </button>
+               <% } else { %>
+               <button class="teal ui icon button" name="like" value="<%=wishes[i].id%>">
+                 <i class="thumbs up icon"></i><%= wishes[i].likes.length%>
+               </button>
+               <% } %>
+
+               <% if (wishes[i].dislikes.indexOf(user)!=-1) { %>
+               <button class="black ui icon button" name="clearDislike" value="<%=wishes[i].id%>">
+                 <i class="thumbs down icon"></i><%= wishes[i].dislikes.length%>
+               </button>
+               <% } else { %>
+               <button class="teal ui icon button" name="dislike" value="<%=wishes[i].id%>">
+                 <i class="thumbs down icon"></i><%= wishes[i].dislikes.length%>
+               </button>
+               <% } %>
+             </form>
+           </p>
          </div>
        </div>
      </div>

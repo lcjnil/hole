@@ -10,6 +10,12 @@ var testRoutes = require('./routes/test')
 
 var app = express();
 
+//for cookie session
+var settings = require('./settings');
+var session    = require('express-session');
+var MongoStore = require('connect-mongo')(session);
+var flash = require('connect-flash');
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
@@ -20,6 +26,34 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded());
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+
+if (process.env.SERVER_SOFTWARE == 'bae/3.0') {
+  app.use(session({
+    secret: settings.cookieSecret,
+    key: 'hole',
+    cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},//30 days
+    store: new MongoStore({
+      host: settings.db_host,
+      port: settings.db_port,
+      username: settings.username,
+      password: settings.password,
+      auto_reconnect: true,
+      db: settings.db_name
+    })
+  }));
+}
+else {
+  app.use(session({
+    secret: settings.cookieSecret,
+    key: 'hole',
+    cookie: {maxAge: 1000 * 60 * 60 * 24 * 30},//30 days
+    store: new MongoStore({
+      db: 'hole'
+    })
+  }));
+}
+app.use(flash());
 
 app.use('/', routes);
 app.use('/test', testRoutes);
