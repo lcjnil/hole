@@ -13,7 +13,7 @@ router.get('/', function(req, res) {
   Wish.count({}, function(err, cnt){
     var page = {};
     page.now = req.query.p ? parseInt(req.query.p) : 1;
-    page.end = parseInt(cnt / 30);
+    page.end = Math.ceil(cnt / 30);
     console.log(page);
 
     Wish.find().sort({'id':-1}).skip((req.query.p-1)*30).limit(30).exec(function(err, wishes){
