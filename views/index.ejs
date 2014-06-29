@@ -74,7 +74,7 @@
              </div>
 
              <button class="ui blue  button" type="submit">Submit</button>
-             <div class="ui green button" id="emoji">Emoji</div>
+             <div class="ui green button" id="<emoji></emoji>">Emoji</div>
 
            </form>
          </div>
@@ -129,9 +129,9 @@
    <%  };%>
  </div>
 </div>
-
+<% if (!test) { %>
 <% include paging %>
-
+<% }%>
 <div class="dark stripe" style="background-color: #333333;">
   <div class="ui page grid">
     <div class="column">
