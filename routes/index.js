@@ -48,7 +48,7 @@ router.post('/', function(req, res) {
     var wish = new Wish({
       to: req.body.to,
       from: req.body.from,
-      content: entities.encodeHTML(req.body.content),
+      content: req.body.content.replaceAll('<', '&lt;'),
       id: cnt+1
     });
     if (req.body.from == "") {
@@ -180,4 +180,10 @@ function showEmoji(content) {
     content = content.replace(eachMatch, dom)
   })
   return content;
+}
+
+
+String.prototype.replaceAll = function (findText, repText){
+  var newRegExp = new RegExp(findText, 'gm');
+  return this.replace(newRegExp, repText);
 }

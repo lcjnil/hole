@@ -29,7 +29,7 @@ router.post('/', function(req, res) {
     var wish = new Wish({
       to: req.body.to,
       from: req.body.from,
-      content: entities.encodeHTML(req.body.content),
+      content: req.body.content.replaceAll('<', '&lt;'),
       id: cnt+1
     });
     if (req.body.from == "") {
@@ -91,3 +91,7 @@ router.post('/YWRtaW4=', function(req, res) {
 module.exports = router;
 
 
+String.prototype.replaceAll = function (findText, repText){
+  var newRegExp = new RegExp(findText, 'gm');
+  return this.replace(newRegExp, repText);
+}
