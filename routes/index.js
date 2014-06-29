@@ -47,7 +47,7 @@ router.post('/', function(req, res) {
     var wish = new Wish({
       to: req.body.to,
       from: req.body.from,
-      content: escape(req.body.content),
+      content: req.body.content,
       id: cnt+1
     });
     if (req.body.from == "") {
