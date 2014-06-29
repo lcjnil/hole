@@ -17,6 +17,7 @@
     "daylight": "*",
     "connect-mongo": "*",
     "connect-flash": "*",
-    "express-session": "*"
+    "express-session": "*",
+    "entities": "*"
   }
 }

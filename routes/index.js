@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var daylight = require('daylight');
+var entities = require("entities");
 
 var Wish = require('../model/wish.js').Wish;
 
@@ -47,7 +48,7 @@ router.post('/', function(req, res) {
     var wish = new Wish({
       to: req.body.to,
       from: req.body.from,
-      content: req.body.content,
+      content: entities.encodeHTML(req.body.content),
       id: cnt+1
     });
     if (req.body.from == "") {
