@@ -1,0 +1,25 @@
+ <div class="ui page grid">
+   <div class="ui center aligned column ">
+     <div class="ui borderless pagination menu">
+      <%if (page.now != 1) { %>
+      <a class="icon item">
+      <i class="icon left arrow" href="/?p=<%=page.now-1%>"></i>
+      </a>
+      <% }; %>
+
+      <% for (i=1; i<=page.end; i++) { %>
+      <% if (i == page.now) { %>
+      <a class="active item" href="/?p=<%=i%>"><%=i%></a>
+      <% } else { %>
+      <a class="item" href="/?p=<%=i%>"><%=i%></a>
+      <% } %>
+      <% } %>
+
+      <% if (page.now != page.end) { %>
+      <a class="icon item" href="/?p=<%=page.now+1%>">
+        <i class="icon right arrow"></i>
+      </a>
+      <% } %>
+    </div>
+  </div>
+</div>

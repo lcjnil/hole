@@ -10,27 +10,35 @@ router.get('/', function(req, res) {
   if (!req.session.token) {
     req.session.token = randomString(8);
   }
-  Wish.find().sort({'id':1}).exec(function(err, wishes){
-    wishes.forEach(function(wish, index) {
-      if(!Array.isArray(wish.likes)) {
-        wish.likes=[];
-      }
-      if(!Array.isArray(wish.dislikes)) {
-        wish.dislikes=[];
-      }
-      wishes[index].timeS = daylight('m/d H:i', wish.time);
-      wish.content = wish.content.replace(/\r\n/g,'</br>');
-      wishes[index].content = showEmoji(wishes[index].content);
-    })
+  Wish.count({}, function(err, cnt){
+    var page = {};
+    page.now = req.query.p ? parseInt(req.query.p) : 1;
+    page.end = parseInt(cnt / 30);
+    console.log(page);
 
-    res.render('index', {
-      title: '网络工程树洞',
-      success: req.flash('success').toString(),
-      error: req.flash('error').toString(),
-      user: req.session.token,
-      wishes: wishes,
-      test: false
-    });
+    Wish.find().sort({'id':-1}).skip((req.query.p-1)*30).limit(30).exec(function(err, wishes){
+      wishes.forEach(function(wish, index) {
+        if(!Array.isArray(wish.likes)) {
+          wish.likes=[];
+        }
+        if(!Array.isArray(wish.dislikes)) {
+          wish.dislikes=[];
+        }
+        wishes[index].timeS = daylight('m/d H:i', wish.time);
+        wish.content = wish.content.replace(/\r\n/g,'</br>');
+        wishes[index].content = showEmoji(wishes[index].content);
+      })
+
+      res.render('index', {
+        title: '网络工程树洞',
+        success: req.flash('success').toString(),
+        error: req.flash('error').toString(),
+        user: req.session.token,
+        wishes: wishes.reverse(),
+        page: page,
+        test: false
+      });
+    })
   })
 });
 
@@ -169,6 +177,6 @@ function showEmoji(content) {
     dom = dom.replace(':', '');
     dom = '<span class="emoji ' + dom +'"></span>';
     content = content.replace(eachMatch, dom)
- })
+  })
   return content;
 }

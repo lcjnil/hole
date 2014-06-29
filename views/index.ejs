@@ -69,7 +69,7 @@
              </div>
              <div class="field">
                <div class="ui mini input">
-               <textarea placeholder="输入你想发送的话，不能留空哦" name="content" id="area"></textarea>
+                 <textarea placeholder="输入你想发送的话，不能留空哦" name="content" id="area"></textarea>
                </div>
              </div>
 
@@ -129,6 +129,9 @@
    <%  };%>
  </div>
 </div>
+
+<% include paging %>
+
 <div class="dark stripe" style="background-color: #333333;">
   <div class="ui page grid">
     <div class="column">
@@ -198,6 +201,7 @@
     }
   });
 </script>
+
 <div class="ui small modal">
   <i class="close icon"></i>
   <div class="header">
